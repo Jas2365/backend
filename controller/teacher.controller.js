@@ -13,7 +13,7 @@ export const getTeacherInfo = async (req, res) => {
 };
 export const postTeacherInfo = async (req, res) => {
   const teacher = req.body;
-  if (!teacher.firstname || !teacher.lastname || !teacher.email) {
+  if (!teacher.kgid || !teacher.name || !teacher.schoolName) {
     return res
       .status(400)
       .json({ success: false, message: "Please provide all fields" });

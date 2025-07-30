@@ -6,17 +6,17 @@ const teacherSchema = mongoose.Schema(
     // kgid
     // name
     // school name
-    // id picture
+    // id picture // not needed
     //
-    firstname: {
+    kgid: {
       type: String,
       required: true,
     },
-    lastname: {
+    name: {
       type: String,
       required: true,
     },
-    email: {
+    schoolName: {
       type: String,
       required: true,
     },

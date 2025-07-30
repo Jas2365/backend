@@ -23,6 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+# service keys
+firebase-service-key.json
 
 # styles
 .env

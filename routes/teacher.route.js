@@ -12,5 +12,4 @@ router.get("/", getTeacherInfo);
 router.post("/", postTeacherInfo);
 router.put("/:id", putTeacherInfo);
 router.delete("/:id", deleteTeacherInfo);
-
 export default router;
