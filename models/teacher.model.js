@@ -2,6 +2,12 @@ import mongoose, { Types } from "mongoose";
 
 const teacherSchema = mongoose.Schema(
   {
+    //
+    // kgid
+    // name
+    // school name
+    // id picture
+    //
     firstname: {
       type: String,
       required: true,
