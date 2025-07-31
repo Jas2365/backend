@@ -2,6 +2,8 @@ import Teacher from "../models/teacher.model.js";
 import mongoose from "mongoose";
 
 export const getTeacherInfo = async (req, res) => {
+  res.send(<p>testing</p>);
+
   try {
     const teacher = await Teacher.find({});
     res.status(200).json({ success: true, data: teacher });
