@@ -24,6 +24,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use("/api/teachers", teacherRoutes);
 
 app.listen(PORT, () => {
   ConnectDB();
