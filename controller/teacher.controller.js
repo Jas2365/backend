@@ -1,5 +1,7 @@
 import Teacher from "../models/teacher.model.js";
 import mongoose from "mongoose";
+import { supabase } from "../supabaseClient.js";
+import { v4 as uuidv4 } from "uuid";
 
 export const getTeacherInfo = async (req, res) => {
   try {
@@ -11,14 +13,42 @@ export const getTeacherInfo = async (req, res) => {
   }
 };
 export const postTeacherInfo = async (req, res) => {
-  const teacher = req.body;
-  if (!teacher.kgid || !teacher.name || !teacher.schoolName) {
+  const teacherData = JSON.parse(req.body.data);
+  const { kgid, name, schoolName } = teacherData;
+  const file = req.file;
+
+  if (!kgid || !name || !schoolName || !file) {
     return res
       .status(400)
       .json({ success: false, message: "Please provide all fields" });
   }
 
-  const newTeacher = new Teacher(teacher);
+  const fileExt = file.originalname.split(".").pop();
+  const fileName = `${uuidv4()}.${fileExt}`;
+  const filePath = `teachers/${fileName}`;
+
+  // uploading image
+  const { error: uploadError } = await supabase.storage
+    .from(process.env.SUPABASE_URL)
+    .upload(filePath, file.buffer, {
+      contentType: file.mimetype,
+      upsert: true,
+    });
+
+  if (uploadError) return res.status(500).json({ error: uploadError.message });
+
+  const { data } = supabase.storage
+    .from(process.env.SUPABASE_URL)
+    .getPublicUrl(filePath);
+
+  const publicUrl = data.publicUrl;
+
+  const newTeacher = new Teacher({
+    kgid,
+    name,
+    schoolName,
+    profileImage: publicUrl,
+  });
 
   try {
     await newTeacher.save();
