@@ -9,14 +9,14 @@ dotenv.config();
 
 const app = express();
 
-async () => {
+(async () => {
   try {
     await ConnectDB();
     console.log("mongo db connected");
   } catch (err) {
     console.error("Mongo db failed", err);
   }
-};
+})();
 const PORT = process.env.PORT || 2365;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
