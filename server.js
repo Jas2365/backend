@@ -9,14 +9,6 @@ dotenv.config();
 
 const app = express();
 
-(async () => {
-  try {
-    await ConnectDB();
-    console.log("mongo db connected");
-  } catch (err) {
-    console.error("Mongo db failed", err);
-  }
-})();
 const PORT = process.env.PORT || 2365;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
@@ -26,13 +18,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json());
 app.use(
   cors({
     origin: FRONTEND_URL,
   })
 );
+app.use(express.json());
 
-app.use("/api/teachers", teacherRoutes);
-
-export default app;
+app.listen(PORT, () => {
+  ConnectDB();
+  console.log("the server is on! http://localhost:" + PORT);
+  console.log("the front end origin is :", FRONTEND_URL);
+});
