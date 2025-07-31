@@ -4,9 +4,8 @@ import mongoose from "mongoose";
 export const getTeacherInfo = async (req, res) => {
   try {
     const teacher = await Teacher.find({});
-    // res.status(200).json({ success: true, data: teacher });
+    res.status(200).json({ success: true, data: teacher });
     console.log("teachers from db: ", teacher);
-    res.json(teacher);
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -23,9 +22,10 @@ export const postTeacherInfo = async (req, res) => {
 
   try {
     await newTeacher.save();
+    console.log("saved teacher", newTeacher);
     res.status(201).json({ success: true, data: newTeacher });
   } catch (error) {
-    res.satus(500).json({ success: false, message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 export const putTeacherInfo = async (req, res) => {

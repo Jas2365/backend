@@ -9,8 +9,13 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 2365;
-
-app.use(cors());
+const FRONTEND_URL = process.env.FRONTEND_URL;
+app.use(
+  cors({
+    origin: FRONTEND_URL,
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.use("/api/teachers", teacherRoutes);
@@ -18,4 +23,5 @@ app.use("/api/teachers", teacherRoutes);
 app.listen(PORT, () => {
   ConnectDB();
   console.log("the server is on! http://localhost:" + PORT);
+  console.log("the front end origin is :", FRONTEND_URL);
 });
