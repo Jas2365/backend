@@ -10,18 +10,19 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 2365;
 const FRONTEND_URL = process.env.FRONTEND_URL;
-app.use(
-  cors({
-    origin: FRONTEND_URL,
-  })
-);
-app.use(express.json());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", FRONTEND_URL);
 
   next();
 });
+
+app.use(
+  cors({
+    origin: FRONTEND_URL,
+  })
+);
+app.use(express.json());
 
 app.use("/api/teachers", teacherRoutes);
 
