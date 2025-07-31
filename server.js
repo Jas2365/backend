@@ -8,6 +8,7 @@ import { ConnectDB } from "./config/db.js";
 dotenv.config();
 
 const app = express();
+ConnectDB();
 const PORT = process.env.PORT || 2365;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
@@ -24,10 +25,8 @@ app.use(
 );
 app.use(express.json());
 
-app.use("/api/teachers", teacherRoutes);
-
-app.listen(PORT, () => {
-  ConnectDB();
-  console.log("the server is on! http://localhost:" + PORT);
-  console.log("the front end origin is :", FRONTEND_URL);
-});
+export default app;
+// app.listen(PORT, () => {
+//   console.log("the server is on! http://localhost:" + PORT);
+//   console.log("the front end origin is :", FRONTEND_URL);
+// });
