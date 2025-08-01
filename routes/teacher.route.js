@@ -6,10 +6,12 @@ import {
   putTeacherInfo,
 } from "../controller/teacher.controller.js";
 
+import { upload } from "../middleware/multer.js";
+
 const router = express.Router();
 
 router.get("/", getTeacherInfo);
-router.post("/", postTeacherInfo);
+router.post("/", upload.single("profileImage"), postTeacherInfo);
 router.put("/:id", putTeacherInfo);
 router.delete("/:id", deleteTeacherInfo);
 export default router;

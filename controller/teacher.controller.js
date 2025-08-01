@@ -29,16 +29,21 @@ export const postTeacherInfo = async (req, res) => {
 
   // uploading image
   const { error: uploadError } = await supabase.storage
-    .from(process.env.SUPABASE_URL)
+    .from(process.env.SUPABASE_BUCKET_NAME)
     .upload(filePath, file.buffer, {
       contentType: file.mimetype,
       upsert: true,
     });
 
-  if (uploadError) return res.status(500).json({ error: uploadError.message });
-
+  if (uploadError) {
+    console.log("error : ", uploadError.message);
+    console.log("bucket name :", process.env.SUPABASE_BUCKET_NAME);
+    return res
+      .status(500)
+      .json({ error: uploadError.message + "  upload error" });
+  }
   const { data } = supabase.storage
-    .from(process.env.SUPABASE_URL)
+    .from(process.env.SUPABASE_BUCKET_NAME)
     .getPublicUrl(filePath);
 
   const publicUrl = data.publicUrl;
