@@ -24,7 +24,7 @@ export const postTeacherInfo = async (req, res) => {
   }
 
   const fileExt = file.originalname.split(".").pop();
-  const fileName = `${uuidv4()}.${fileExt}`;
+  const fileName = `${name}-${kgid}.${fileExt}`;
   const filePath = `teachers/${fileName}`;
 
   // uploading image
@@ -36,8 +36,6 @@ export const postTeacherInfo = async (req, res) => {
     });
 
   if (uploadError) {
-    console.log("error : ", uploadError.message);
-    console.log("bucket name :", process.env.SUPABASE_BUCKET_NAME);
     return res
       .status(500)
       .json({ error: uploadError.message + "  upload error" });
