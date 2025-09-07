@@ -24,6 +24,14 @@ const teacherSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    taluka: {
+      type: String,
+      required: true,
+    },
+    cluster: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

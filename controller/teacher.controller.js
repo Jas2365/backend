@@ -14,10 +14,10 @@ export const getTeacherInfo = async (req, res) => {
 };
 export const postTeacherInfo = async (req, res) => {
   const teacherData = JSON.parse(req.body.data);
-  const { kgid, name, schoolName } = teacherData;
+  const { kgid, name, schoolName, taluka, cluster } = teacherData;
   const file = req.file;
 
-  if (!kgid || !name || !schoolName || !file) {
+  if (!kgid || !name || !schoolName || !file || !taluka || !cluster) {
     return res
       .status(400)
       .json({ success: false, message: "Please provide all fields" });
@@ -51,6 +51,8 @@ export const postTeacherInfo = async (req, res) => {
     name,
     schoolName,
     profileImage: publicUrl,
+    taluka,
+    cluster,
   });
 
   try {
